@@ -1,0 +1,37 @@
+doctype html
+html
+    body 
+        nav.navbar.navbar-expand-lg.bg-dark.border-body(data-bs-theme="dark")
+            .container-fluid
+                a.navbar-brand(href="/")
+                    img(src= client.avatarURL() width="45" height="45")
+                    |   #{client.username}
+                button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+                    span.navbar-toggler-icon
+                #navbarSupportedContent.collapse.navbar-collapse
+                    ul.navbar-nav.me-auto.mb-2.mb-lg-0
+                        li.nav-item 
+                            a.nav-link.active(aria-current="page" href="/") Inicio 
+                        li.nav-item 
+                            a.nav-link(href="https://discord.com/oauth2/authorize?client_id=1198236092516802701&permissions=8&scope=bot%20applications.commands") Me adicione
+                        li.nav-item.dropdown
+                            a.nav-link.dropdown-toggle(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false')
+                                | Importante
+                            ul.dropdown-menu
+                                li
+                                    a.dropdown-item(href='https://dsc.gg/felpzsouls' target="_blank") Suporte 
+                                li
+                                    a.dropdown-item(href='/terms') Termos de uso e privacidade
+                                li
+                                    hr.dropdown-divider
+                                li
+                                    a.dropdown-item(href='https://twitch.tv/felpzsouls_' target="_blank") Meu criador: Felpzsouls
+                    if !user 
+                        a.nav-link.active(aria-current="page" href="/auth/discord")
+                            h3 Login
+                    else 
+                        a.nav-link(href="/dashboard")
+                            .container-fluid.align-items-center.d-flex
+                                img.img-thumbnail.rounded-circle.border.border-info(src= userAvatar style="width: 55px; height: 55px")
+                                h3.text-start.mx-2
+                                    | !{user.username}
