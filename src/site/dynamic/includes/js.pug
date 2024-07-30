@@ -1,9 +1,10 @@
 doctype html
 html(lang="pt-br")
     head
-        - const avatar = bot.user.avatarURL({ format: 'png'});
+        - const icon = bot.user.avatarURL({ format: 'png'});
         - const client = bot.user;
-        - const format = user.avatar.startsWith('a_') ? 'gif' : 'png';
-        - const userAvatar = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${format}?size=2048`;
-
-        link(rel="shortcut icon" href= avatar)
+        if(user)
+            - const format = user.avatar.startsWith('a_') ? 'gif' : 'png';
+            - const url = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${format}?size=2048`;
+            - avatar = url
+        link(rel="shortcut icon" href= icon)

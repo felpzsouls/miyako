@@ -26,12 +26,12 @@ html
                                     hr.dropdown-divider
                                 li
                                     a.dropdown-item(href='https://twitch.tv/felpzsouls_' target="_blank") Meu criador: Felpzsouls
-                    if !user 
+                    if (!user) 
                         a.nav-link.active(aria-current="page" href="/auth/discord")
                             h3 Login
                     else 
                         a.nav-link(href="/dashboard")
                             .container-fluid.align-items-center.d-flex
-                                img.img-thumbnail.rounded-circle.border.border-info(src= userAvatar style="width: 55px; height: 55px")
+                                img.img-thumbnail.rounded-circle.border.border-info(src=avatar style="width: 55px; height: 55px")
                                 h3.text-start.mx-2
                                     | !{user.username}
