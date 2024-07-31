@@ -8,12 +8,16 @@ html(lang="pt-br")
     body 
         include includes/navbar.pug
         
-        .container-md.mt-5.p-3.rounded(style="background-color: #FA5532")
+        .container-lg.mt-5.p-3.rounded(style="background-color: #FA5532")
             .row
-                .col-12.col-md-4.border-end.border-dark
+                .col-6.col-md-3.border-end.border-dark
                     .container-md.d-flex.flex-column.align-items-center
-                        img.img.thumbnail.rounded-circle.border.border-info(src=avatar)
+                        img.img-thumbnail.rounded-circle.border.border-info(src=avatar)
                         h2.text-center 
                             | !{user.username}
                     .nav.flex-column
                         a.nav-link.active(href="/dashboard") Servidores
+                .col-6.col-md-8
+                    .container-md.text-center.overflow-auto(style="max-height: 280px")
+                        .row.row-cols-8
+                            | !{servers}

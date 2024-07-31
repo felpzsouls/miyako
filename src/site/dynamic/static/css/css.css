@@ -7,3 +7,10 @@
   body {
     background-color: #323232
   }
+
+  .text-truncate-custom {
+    width: 200px; /* Defina a largura desejada */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

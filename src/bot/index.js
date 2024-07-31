@@ -1,7 +1,9 @@
 const { Client, GatewayIntentBits } = require('discord.js'),
-    bot = new Client({ intents : [ GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildPresences, GatewayIntentBits.MessageContent ]});
+    bot = new Client({ intents: [GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildPresences, GatewayIntentBits.MessageContent] });
 
-    bot.on('ready', () => console.log('bot online'));
+bot.on('ready', async() => {
+    console.log('bot online')
+});
 
 
 module.exports = {
