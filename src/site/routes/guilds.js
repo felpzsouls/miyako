@@ -2,7 +2,7 @@ const { Router } = require(`express`),
     route = Router(),
     bot = require(`../../bot`).bot;
 
-
+route.get(`/`, (req, res) => res.redirect(`/dashboard`));
 route.get(`/:id`, async (req, res) => {
     if (!req.isAuthenticated()) return res.redirect(`/dashboard`);
 
@@ -19,10 +19,7 @@ route.get(`/:id`, async (req, res) => {
 })
 
 route.get(`/callback`, async (req, res) => {
-    if (!req.isAuthenticated()) return res.redirect(`/dashboard`);
-
     const guildId = req.query.state;
-    if (!guildId) return res.redirect(`/dashboard`);
 
     res.redirect(`/guilds/${guildId}`);
 })

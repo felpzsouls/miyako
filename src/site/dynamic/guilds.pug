@@ -8,4 +8,13 @@ html(lang="pt-br")
     body 
         include includes/navbar.pug
 
-        
+        .container-lg.mt-5.p-3.rounded(style="background-color: #FA5532")
+            .row
+                .col-6.col-md-3.border-end.border-dark
+                    .container-md.d-flex.flex-column.align-items-center
+                        img.img-thumbnail.rounded-circle.border.border-info(src=guildIcon)
+                        h2.text-center 
+                            | !{guild.name}
+                    .nav.flex-column.align-items-center
+                        a.nav-link.active(href="/dashboard") Configuracoes gerais
+                .col-6.col-md-8

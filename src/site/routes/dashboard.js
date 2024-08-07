@@ -10,19 +10,11 @@ route.get('/', async (req, res) => {
 
   const serverCheck = userGuilds.map(async (guild) => {
     await bot.guilds.fetch(guild.id).catch(() => false);
-    const inServer = bot.guilds.cache.has(guild.id);
+    const inServer = bot.guilds.cache.has(guild.id),
+      redirectUri = encodeURIComponent(`http://localhost/guilds/callback`);
 
-    let link = ``;
-    let text = ``;
-
-    if (inServer) {
-      link = `/guilds/${guild.id}`;
-      text = "Configurações";
-    } else {
-      const redirectUri = encodeURIComponent(`http://localhost/guilds/callback`);
-      link = `https://discord.com/oauth2/authorize?client_id=${bot.user.id}&scope=bot+applications.commands&permissions=8&guild_id=${guild.id}&response_type=code&redirect_uri=${redirectUri}&state=${guild.id}`;
-      text = "Me adicione";
-    }
+    let link = inServer ? `/guilds/${guild.id}` : `https://discord.com/oauth2/authorize?client_id=${bot.user.id}&scope=bot+applications.commands&permissions=8&guild_id=${guild.id}&response_type=code&redirect_uri=${redirectUri}&state=${guild.id}`,
+      text = inServer ? "Configurações" : "Me adicione";
 
     return `<div class="col-8 col-md-4">
       <div class="d-flex align-items-center">
