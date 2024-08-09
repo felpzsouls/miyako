@@ -2,9 +2,9 @@ module.exports.run = async (bot, int) => {
     if (!int.isChatInputCommand()) return;
 
     const { commandName } = int,
-        command = bot.cmds.get(commandName);
+        command = int.client.cmds.get(commandName)
 
-    if (!command) return;
+    if(!command) return;
 
-    command.run(bot, int);
+    command.run(bot, int)
 };

@@ -7,7 +7,8 @@ route.get(`/`, async (req, res) => {
 
   res.render('index', {
     bot,
-    user
+    user,
+    guild: null
   });
 });
 

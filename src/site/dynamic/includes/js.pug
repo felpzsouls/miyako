@@ -4,8 +4,5 @@ if(user)
     - const format = user.avatar.startsWith('a_') ? 'gif' : 'png';
     - const url = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${format}?size=2048`;
     - avatar = url
-if(guild)
-    - let format2 = guild.icon.startsWith('a_') ? 'gif' : 'png';
-    - let url2 = `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.${format2}?size=2048`;
-    - guildIcon = url2
+
 link(rel="shortcut icon" href= icon)

@@ -7,7 +7,7 @@ module.exports = async (bot) => {
 
     for (let file of path) {
         const cmd = require(`../cmds/${file}`);
-        bot.cmds.set(cmd.name, cmd);
+        bot.cmds.set(cmd.data.name, cmd)
         commands.push(cmd.data.toJSON());
     }
 
