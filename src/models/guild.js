@@ -1,6 +1,6 @@
 const mongoose = require(`mongoose`),
     Schema = new mongoose.Schema({
-        id: String,
+        id: { type: Number },
         prefix: { type: String, default: `-`}
     });
 

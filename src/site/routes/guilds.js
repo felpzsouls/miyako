@@ -1,20 +1,24 @@
 const { Router } = require(`express`),
     route = Router(),
-    bot = require(`../../bot`).bot;
+    bot = require(`../../bot`).bot,
+    guildSchema = require(`../../models/guild`);
 
 route.get(`/`, (req, res) => res.redirect(`/dashboard`));
+
 route.get(`/:id`, async (req, res) => {
     if (!req.isAuthenticated()) return res.redirect(`/dashboard`);
 
     const user = req.user,
-        guild = bot.guilds.cache.get(req.params.id);
+        guild = bot.guilds.cache.get(req.params.id),
+        guildData = guildSchema.findOne({ id: guild.id});
 
     if (!guild) return res.redirect(`/dashboard`);
-
+    
     res.render(`guilds`, {
         user,
         bot,
-        guild
+        guild,
+        guildData
     })
 })
 

@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const route = Router();
 const bot = require('../../bot/index').bot;
+const guildSchema = require('../../models/guild')
 
 route.get('/', async (req, res) => {
   if (!req.isAuthenticated()) return res.redirect('/auth/discord');

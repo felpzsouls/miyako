@@ -17,5 +17,31 @@ html(lang="pt-br")
                         h2.text-center 
                             | !{guild.name}
                     .nav.flex-column.align-items-center
-                        a.nav-link.active(href="/dashboard") Configuracoes gerais
+                        a.nav-link.active(href=`/guilds/${guild.id}`) Configuracoes gerais
                 .col-6.col-md-8
+                    h2.text-center Configuracoes gerais
+                    .container-md 
+                        form#guildForm.row.g-3
+                            .col-sm-5
+                                label.form-label(for="prefix") Prefixo
+                                input.form-control#prefix(type="text" aria-describedby="prefixHelp" value=`${guildData.prefix || `-`}`)
+                                #prefixHelp.form-text Escolha um prefixo para seu servidor
+                            .col-sm-12
+                                button.btn.btn-success(type="submit") Salvar
+
+        script.
+            document.getElementById('guildForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const prefix = document.getElementById('prefix').value;
+                // aqui você pode coletar outros dados do formulário
+                const response = await fetch('/api/update-guild-data', {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ guildId: '!{guild.id}', prefix})
+                    });
+                const result = await response.json();
+                alert(result.message);
+                });
+                

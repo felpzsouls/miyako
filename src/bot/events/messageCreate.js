@@ -1,7 +1,7 @@
 const guildSchema = require(`../../models/guild`);
 
 module.exports.run = async (bot, int) => {
-    let guild = guildSchema.findOne({ id: int.guild.id }),
+    let guild = await guildSchema.findOne({ id: int.guild.id }),
         prefix = guild.prefix;
 
     if (!prefix) prefix = `-`;
