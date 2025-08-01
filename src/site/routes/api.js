@@ -3,18 +3,18 @@ const route = Router();
 const guildSchema = require('../../models/guild');
 
 route.post('/update-guild-data', async (req, res) => {
-  const { guildId, prefix } = req.body;
+  const { guildId, prefix, restricted } = req.body;
 
   try {
     let guild = await guildSchema.findOne({ id: guildId });
     if (!guild) {
       guild = new guildSchema({
-        id: guildId,
-        prefix: prefix, // use o prefixo fornecido na criação
+        id: guildId
       });
-    } else {
-      guild.prefix = prefix; // atualize o prefixo se a guild já existir
     }
+
+    guild.prefix = prefix;
+
 
     await guild.save();
     res.json({ message: 'Dados da guild atualizados com sucesso.' });

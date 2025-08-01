@@ -22,24 +22,32 @@ html(lang="pt-br")
                     h2.text-center Configuracoes gerais
                     .container-md 
                         form#guildForm.row.g-3
-                            .col-sm-5
+                            .col-sm-12
                                 label.form-label(for="prefix") Prefixo
-                                input.form-control#prefix(type="text" aria-describedby="prefixHelp" value=`${guildData.prefix || `-`}`)
+                                input.form-control#prefix(type="text" aria-describedby="prefixHelp" value=`${guildData.prefix || `-`}` style="max-width: 350px")
                                 #prefixHelp.form-text Escolha um prefixo para seu servidor
+                            .col-sm-9 
+                                .form-check.form-switch
+                                    input.form-check-input(type="checkbox" role="switch" id="flexSwitchCheckDefault")
+                                    label.form-check-label(for="flexSwitchCheckDefault") Enviar uma mensagem quando usar comandos em canais proibidos
                             .col-sm-12
                                 button.btn.btn-success(type="submit") Salvar
+
 
         script.
             document.getElementById('guildForm').addEventListener('submit', async (e) => {
                 e.preventDefault();
-                const prefix = document.getElementById('prefix').value;
-                // aqui você pode coletar outros dados do formulário
+                const prefix = document.getElementById('prefix').value,
+                    restricted = document.getElementById('flexSwitchCheckDefault').checked;
+
+                console.log(restricted)
+
                 const response = await fetch('/api/update-guild-data', {
                     method: 'POST',
                     headers: {
                     'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ guildId: '!{guild.id}', prefix})
+                    body: JSON.stringify({ guildId: '!{guild.id}', prefix, restricted})
                     });
                 const result = await response.json();
                 alert(result.message);

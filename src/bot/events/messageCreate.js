@@ -8,6 +8,9 @@ module.exports.run = async (bot, int) => {
 
     if (!int.content.startsWith(prefix) || int.author.bot) return;
 
+    const channels = ['1192302425680379934']
+    if(channels.includes(int.channel.id)) return int.reply(`Você não pode usar comandos nesse canal!`);
+
     const args = int.content.slice(prefix.length).trim().split(/  +/),
         command = args.shift().toLowerCase(),
         cmd = int.client.cmds.get(command);

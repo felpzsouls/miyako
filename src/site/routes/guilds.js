@@ -10,7 +10,7 @@ route.get(`/:id`, async (req, res) => {
 
     const user = req.user,
         guild = bot.guilds.cache.get(req.params.id),
-        guildData = guildSchema.findOne({ id: guild.id});
+        guildData = await guildSchema.findOne({ id: guild.id });
 
     if (!guild) return res.redirect(`/dashboard`);
     
