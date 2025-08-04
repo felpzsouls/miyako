@@ -14,6 +14,7 @@ route.post('/update-guild-data', async (req, res) => {
     }
 
     guild.prefix = prefix;
+    guild.restricted.active = restricted;
 
 
     await guild.save();
