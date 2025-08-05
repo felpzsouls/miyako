@@ -3,7 +3,7 @@ const route = Router();
 const guildSchema = require('../../models/guild');
 
 route.post('/update-guild-data', async (req, res) => {
-  const { guildId, prefix, restricted } = req.body;
+  const { guildId, prefix, restricted, blockedChannels } = req.body;
 
   try {
     let guild = await guildSchema.findOne({ id: guildId });
@@ -13,11 +13,19 @@ route.post('/update-guild-data', async (req, res) => {
       });
     }
 
-    guild.prefix = prefix;
-    guild.restricted.active = restricted;
-
-
-    await guild.save();
+    console.log(blockedChannels)
+    
+    await guildSchema.updateOne(
+      { 'id': guildId },
+      {
+        $set: {
+          prefix,
+          'restricted.active': restricted,
+          'restricted.channels': blockedChannels
+        }
+      },
+      { upsert: true }
+    );
     res.json({ message: 'Dados da guild atualizados com sucesso.' });
   } catch (error) {
     console.error('Erro ao atualizar os dados da guild:', error);

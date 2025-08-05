@@ -4,7 +4,8 @@ const mongoose = require(`mongoose`),
         prefix: { type: String, default: `-`},
         restricted: {
             active: {type: Boolean, default: false},
-            channels: {type: [String], default: []}
+            channels: {type: [String], default: []},
+            message : { type: String, default: 'Você não pode usar comandos nesse canal!' }
         }
     });
 

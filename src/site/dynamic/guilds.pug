@@ -1,78 +1,55 @@
 doctype html
 html(lang="pt-br")
   head
+    //- Includes
     include includes/js.pug
     include includes/guilds.pug
     include includes/head.pug
     title !{bot.user.username} || Dashboard
 
-    
+    //- CSS do Choices
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css")
 
   body
     include includes/navbar.pug
 
     .container.my-5
-        .card.shadow-lg.border-0.rounded-4.bg-dark.text-light
-            .row.g-0
-          
-                .col-md-4.d-flex.flex-column.align-items-center.justify-content-center.p-4.border-end.border-secondary
-                    img(src=guildIcon width="150" height="150").rounded-circle.border.mb-3
-                    h4.fw-bold.text-light !{guild.name}
-                    a.text-info.mt-2.text-decoration-none(href=`/guilds/${guild.id}`) ⚙️ Configurações Gerais
+      .card.shadow-lg.border-0.rounded-4.bg-dark.text-light
+        .row.g-0
 
-                .col-md-8.p-5
-                    h3.fw-bold.mb-4.text-info ⚙️ Configurações Gerais
-                    form#guildForm
-                        .mb-3
-                            label.form-label.text-light(for="prefix") Prefixo
-                            input#prefix.form-control.form-control-lg.rounded-pill.bg-secondary.text-light.border-0(type="text" placeholder="Digite o prefixo do bot" value=`${guildData.prefix || '-'}`)
-                            small.text-muted.text-light Escolha um prefixo para seu servidor
-                        .form-check.form-switch.my-4
-                            input.form-check-input(type="checkbox" id="toggleMessage" checked=guildData.restricted.active)
-                            label.form-check-label.text-light(for="toggleMessage") Enviar uma mensagem quando usar comandos em canais proibidos
-                        .form-group.mb-4
-                            label.form-label(for="blockedChannels") Canais que serão proibidos usar comandos
-                            select#blockedChannels(name="blockedChannels" multiple)
-                                each channel in guildChannels
-                                    if channel.type === 0
-                                        option(
-                                            value=channel.id 
-                                            selected=guildData.restricted.channels.includes(channel.id)
-                                        ) #{channel.name}
+          //- Lado esquerdo (logo e título)
+          .col-md-4.d-flex.flex-column.align-items-center.justify-content-center.p-4.border-end.border-secondary
+            img(src=guildIcon width="150" height="150").rounded-circle.border.mb-3
+            h4.fw-bold.text-light !{guild.name}
+            a.text-info.mt-2.text-decoration-none(href=`/guilds/${guild.id}`) ⚙️ Configurações Gerais
 
-                    button.btn.btn-success.btn-lg.rounded-pill.px-4(type="submit") 💾 Salvar
+          //- Lado direito (formulário)
+          .col-md-8.p-5
+            h3.fw-bold.mb-4.text-info ⚙️ Configurações Gerais
+            form#guildForm
+              .mb-3
+                label.form-label.text-light(for="prefix") Prefixo
+                input#prefix.form-control.form-control-lg.rounded-pill.bg-secondary.text-light.border-0(type="text" placeholder="Digite o prefixo do bot" value=`${guildData.prefix || '-'}`)
+                small.text-light Escolha um prefixo para seu servidor
 
+              .form-check.form-switch.my-4
+                input.form-check-input(type="checkbox" id="toggleMessage" checked=guildData.restricted.active)
+                label.form-check-label.text-light(for="toggleMessage") Enviar uma mensagem quando usar comandos em canais proibidos
 
-    script.
-        document.addEventListener('DOMContentLoaded', function () {
-            const selectElement = document.getElementById('blockedChannels');
+              .form-group.mb-4
+                label.form-label.text-light(for="blockedChannels") Canais que serão proibidos usar comandos
+                select#blockedChannels.form-control.disabled(name="blockedChannels" multiple)
+                  each channel in guildChannels
+                    if channel.type === 0
+                      option(
+                        value=`${channel.id}`
+                        selected=guildData.restricted.channels.includes(channel.id)
+                      ) #{channel.name}
+                label.form-label.text-light(for='messageRestricted') Mensagem que será enviada quando usar comandos em canais proibidos
+                textarea#messageRestristed.form-control.bg-secondary.text-light.border-0.rounded-3(name="messageRestricted" rows="3") #{guildData.restricted.message || 'Você não pode usar comandos nesse canal!'}
 
-            const choices = new Choices(selectElement, {
-                removeItemButton: true,
-                searchEnabled: true,
-                placeholder: true,
-                placeholderValue: 'Selecione os canais',
-                searchPlaceholderValue: 'Buscar canal...',
-                classNames: {
-                    containerInner: 'choices__inner bg-secondary text-light',
-                    input: 'text-light',
-                    listDropdown: 'bg-dark text-light',
-                    item: 'bg-dark text-light'
-                }
-            });
-        });
+              button.btn.btn-success.btn-lg.rounded-pill.px-4(type="submit") 💾 Salvar
 
-        document.getElementById('guildForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const prefix = document.getElementById('prefix').value;
-            const restricted = document.getElementById('flexSwitchCheckDefault')?.checked ?? document.getElementById('toggleMessage')?.checked;
-
-            const response = await fetch('/api/update-guild-data', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ guildId: '!{guild.id}', prefix, restricted })
-            });
-
-            const result = await response.json();
-            alert(result.message);
-        });
+    //- Scripts
+    script(src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js")
+    script(src="/js/guilds.js")

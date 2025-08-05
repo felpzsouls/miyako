@@ -26,3 +26,25 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.bg-gradient-dark {
+  background: linear-gradient(to right, #1b1f23, #2b3036);
+}
+
+.navbar-brand span {
+  font-size: 1.3rem;
+}
+
+.navbar .nav-link {
+  transition: all 0.2s ease-in-out;
+}
+
+.navbar .nav-link:hover {
+  color: #00bcd4 !important;
+  transform: translateY(-1px);
+}
+
+.dropdown-menu-dark {
+  background-color: #2a2f34;
+  border-color: #17a2b8;
+}
