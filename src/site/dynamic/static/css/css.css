@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    color: #333;
+    color: #fff;
   }
   
   body {
@@ -47,4 +47,33 @@
 .dropdown-menu-dark {
   background-color: #2a2f34;
   border-color: #17a2b8;
+}
+
+body {
+  background-color: #121212;
+  color: #fff;
+}
+
+.nav-link.active, .nav-link:hover {
+  background-color: #17a2b8 !important;
+  color: #fff !important;
+  border-radius: 8px;
+  transition: 0.2s ease-in-out;
+}
+
+.img-thumbnail {
+  background-color: #1e1e1e;
+}
+
+.shadow {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+h2, h3 {
+  font-weight: 600;
+}
+
+.row-cols-8 > * {
+  flex: 0 0 auto;
+  width: 12.5%;
 }
